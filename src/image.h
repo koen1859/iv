@@ -10,6 +10,7 @@ struct Image {
   int32_t width, height, channels;
   std::filesystem::path path;
   std::vector<Color> pixels;
+  size_t file_size;
 
   Image(std::filesystem::path path);
 

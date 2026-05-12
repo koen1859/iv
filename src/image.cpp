@@ -1,9 +1,13 @@
 #include "image.h"
+#include <filesystem>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 
-Image::Image(std::filesystem::path path) : path(path) { read_image(); }
+Image::Image(std::filesystem::path path)
+    : path(path), file_size(std::filesystem::file_size(path)) {
+  read_image();
+}
 
 void Image::read_image(void) {
   // File does not exist: fail
