@@ -51,5 +51,4 @@ void IV::process_event(void) {
     }
     break;
   }
-  update();
 }

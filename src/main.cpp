@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
   while (iv.running) {
     iv.wait_event();
     iv.process_event();
+    iv.update();
   }
 
   // Exit cleanly

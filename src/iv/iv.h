@@ -7,8 +7,10 @@
 #include <SDL_render.h>
 
 #include <cstdint>
+#include <mutex>
+#include <thread>
 
-#include "../image.h"
+#include "../image/image.h"
 
 struct IV {
   Image image;
@@ -23,6 +25,8 @@ struct IV {
   SDL_Event event;
 
   bool running = true;
+  std::thread thread;
+  std::mutex mutex;
 
   void fit_and_center_image(void);
 
