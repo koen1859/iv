@@ -1,10 +1,6 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <SDL_events.h>
-#include <SDL_keycode.h>
-#include <SDL_pixels.h>
-#include <SDL_render.h>
 
 #include <cstdint>
 #include <mutex>

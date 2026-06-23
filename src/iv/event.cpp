@@ -1,5 +1,4 @@
 #include "iv.h"
-#include <SDL_keycode.h>
 
 void IV::wait_event(void) { SDL_WaitEvent(&event); }
 
