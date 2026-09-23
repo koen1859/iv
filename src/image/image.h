@@ -1,17 +1,29 @@
 #pragma once
 
 #include <filesystem>
+#include <memory>
+#include <vector>
+
+// Function object that frees stb_image buffers
+struct ImagePixelDeleter {
+  void operator()(unsigned char *ptr) const;
+};
 
 struct Image {
   std::filesystem::path path;
-  uint64_t file_size;
-  int width, height, channels;
+  int width = 0;
+  int height = 0;
+  int channels = 0;
 
-  // Use a unique_ptr with a custom deleter to manage raw pixel data
-  unsigned char *pixels;
+  // Raw file bytes, loaded once up front
+  std::vector<unsigned char> bytes;
 
+  // Decoded RGBA pixels, owned via unique_ptr
+  std::unique_ptr<unsigned char, ImagePixelDeleter> pixels;
+
+  // Loads the file bytes from disk
   Image(std::filesystem::path path);
 
-  // This function will handle loading the image data
+  // Decodes bytes into pixels (may be called on a worker thread)
   void read_image(void);
 };

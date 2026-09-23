@@ -1,7 +1,11 @@
 #include "iv.h"
+
 #include <SDL_keycode.h>
 
-void IV::wait_event(void) { SDL_WaitEvent(&event); }
+void IV::wait_event(void) {
+  // Timeout so update() can pick up a finished background decode
+  SDL_WaitEventTimeout(&event, 16);
+}
 
 void IV::process_event(void) {
   switch (event.type) {
@@ -12,6 +16,7 @@ void IV::process_event(void) {
   case SDL_WINDOWEVENT:
     if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
       fit_and_center_image();
+      dirty = true;
     }
     break;
 
@@ -49,6 +54,7 @@ void IV::process_event(void) {
       running = false;
       break;
     }
+    dirty = true;
     break;
   }
 }
